@@ -1,0 +1,1852 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Booking API documentation",
+    "description": "L5 Swagger OpenApi description",
+    "contact": {
+      "email": "khujand.nanocoding@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3001/api",
+      "description": "Local API Server"
+    }
+  ],
+  "paths": {
+    "/booking": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Display all bookings",
+        "operationId": "bookingAll",
+        "parameters": [
+          {
+            "name": "table_id",
+            "in": "query",
+            "description": "The booking`s table id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "The booking`s user id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The booking`s date",
+            "schema": {
+              "type": "date"
+            }
+          },
+          {
+            "name": "time_start",
+            "in": "query",
+            "description": "The booking`s time start",
+            "schema": {
+              "type": "time"
+            }
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "description": "The booking`s time end",
+            "schema": {
+              "type": "time"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "The booking`s phone",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "The booking`s description",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The booking`s statuses",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingModel"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Create a booking",
+        "operationId": "bookingPost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/booking/{id}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Show booking by id",
+        "operationId": "showBookingById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The booking`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Update booking by id",
+        "operationId": "updateBookingById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The booking`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Delete booking by id",
+        "operationId": "deleteBookingById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The booking`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/booking/toggle/{id}": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Toggle status booking by id",
+        "operationId": "toggleStatusBookingById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "The booking`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/company": {
+      "get": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Display all companies",
+        "operationId": "companyAll",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The company`s name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "The company`s description",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The company`s address",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "The company`s phone",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The company`s statuses",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompanyModel"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Create a company",
+        "operationId": "companyPost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/company/{id}": {
+      "get": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Show company by id",
+        "operationId": "showCompanyById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The company`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Update company by id",
+        "operationId": "updateCompanyById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The company`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Delete company by id",
+        "operationId": "deleteCompanyById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The company`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/company/toggle/{id}": {
+      "post": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Toggle status company by id",
+        "operationId": "toggleStatusCompanyById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "The company`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/img/upload": {
+      "post": {
+        "tags": [
+          "Images"
+        ],
+        "operationId": "fe9b185e0ee24cb286a1eb1e30616d75",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "image": {
+                    "type": "file"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/img/remove": {
+      "post": {
+        "tags": [
+          "Images"
+        ],
+        "operationId": "a2e6d6b4c738f31cb5e406c7d849681b",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/main": {
+      "get": {
+        "tags": [
+          "Main page"
+        ],
+        "summary": "Display main data",
+        "operationId": "mainAll",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The table`s name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "seat_count",
+            "in": "query",
+            "description": "The table`s seat count",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "The table`s seat type (TABLE = 0; CABIN = 1;)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ]
+            }
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "description": "The table`s company_id (ONLY FOR ADMIN)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The booking`s date",
+            "schema": {
+              "type": "date"
+            }
+          },
+          {
+            "name": "time_start",
+            "in": "query",
+            "description": "The booking`s time start",
+            "schema": {
+              "type": "time"
+            }
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "description": "The booking`s time end",
+            "schema": {
+              "type": "time"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "The booking`s phone",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "The booking`s description",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MainModel"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/table": {
+      "get": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Display all tables",
+        "operationId": "tableAll",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The table`s name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "seat_count",
+            "in": "query",
+            "description": "The table`s seat count",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "The table`s seat type (TABLE = 0; CABIN = 1;)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The table`s status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TableModel"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Create a table",
+        "operationId": "tablePost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TableStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/table/{id}": {
+      "get": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Show table by id",
+        "operationId": "showTableById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The table`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Update table by id",
+        "operationId": "updateTableById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The table`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TableStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Delete table by id",
+        "operationId": "deleteTableById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The table`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/table/toggle/{id}": {
+      "post": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Toggle status table by id",
+        "operationId": "toggleStatusTableById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "The table`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Create a user",
+        "operationId": "userSignup",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoggedModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/signin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login to site",
+        "operationId": "userSignin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoggedModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Display all users",
+        "operationId": "usersAll",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Show user by id",
+        "operationId": "showUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The user`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user by id",
+        "operationId": "updateUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The user`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterStoreModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete user by id",
+        "operationId": "deleteUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The user`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user/toggle/{id}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Toggle status user by id",
+        "operationId": "toggleStatusUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The user`s id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookingModel": {
+        "title": "Booking model",
+        "description": "Booking model",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Booking`s id",
+            "format": "string"
+          },
+          "table_id": {
+            "title": "Table id",
+            "description": "Booking`s table id",
+            "format": "integer"
+          },
+          "date": {
+            "title": "Date",
+            "description": "Booking`s date",
+            "format": "date"
+          },
+          "time_start": {
+            "title": "Time start",
+            "description": "Booking`s time start",
+            "format": "time"
+          },
+          "time_end": {
+            "title": "Time end",
+            "description": "Booking`s time end",
+            "format": "time"
+          },
+          "phone": {
+            "title": "Phone",
+            "description": "Company`s phone",
+            "format": "string"
+          },
+          "description": {
+            "title": "description",
+            "description": "Booking`s description",
+            "format": "string"
+          },
+          "user_id": {
+            "title": "User id",
+            "description": "Booking`s user id",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Booking`s status",
+            "format": "string"
+          },
+          "created_at": {
+            "title": "Created at",
+            "description": "Booking`s created at",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "title": "Updated at",
+            "description": "Booking`s updated at",
+            "format": "date-time"
+          }
+        },
+        "type": "object"
+      },
+      "BookingStoreModel": {
+        "title": "Booking store model",
+        "description": "Booking store model",
+        "properties": {
+          "table_id": {
+            "title": "Table id",
+            "description": "Booking`s table id",
+            "format": "string"
+          },
+          "date": {
+            "title": "Date",
+            "description": "Booking`s date",
+            "format": "date"
+          },
+          "time_start": {
+            "title": "Time start",
+            "description": "Booking`s time start",
+            "format": "time"
+          },
+          "time_end": {
+            "title": "Time end",
+            "description": "Booking`s time end",
+            "format": "time"
+          },
+          "phone": {
+            "title": "Phone",
+            "description": "Company`s phone",
+            "format": "string"
+          },
+          "description": {
+            "title": "description",
+            "description": "Booking`s description",
+            "format": "string"
+          },
+          "user_id": {
+            "title": "User id",
+            "description": "Booking`s user id",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CompanyModel": {
+        "title": "Company model",
+        "description": "Company model",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Company`s id",
+            "format": "string"
+          },
+          "name": {
+            "title": "Name",
+            "description": "Company`s name",
+            "format": "string"
+          },
+          "description": {
+            "title": "Description",
+            "description": "Company`s description",
+            "format": "string"
+          },
+          "image": {
+            "title": "Image",
+            "description": "Company`s image",
+            "format": "string"
+          },
+          "preview": {
+            "title": "Preview",
+            "description": "Company`s preview",
+            "format": "string"
+          },
+          "address": {
+            "title": "Address",
+            "description": "Company`s address",
+            "format": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "description": "Company`s phone",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Company`s status",
+            "format": "string"
+          },
+          "created_at": {
+            "title": "Created at",
+            "description": "Company`s created at",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "title": "Updated at",
+            "description": "Company`s updated at",
+            "format": "date-time"
+          }
+        },
+        "type": "object"
+      },
+      "CompanyStoreModel": {
+        "title": "Company model",
+        "description": "Company model",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "description": "Company`s name",
+            "format": "string"
+          },
+          "description": {
+            "title": "Description",
+            "description": "Company`s description",
+            "format": "string"
+          },
+          "image": {
+            "title": "Image",
+            "description": "Company`s image",
+            "format": "string"
+          },
+          "address": {
+            "title": "Address",
+            "description": "Company`s address",
+            "format": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "description": "Company`s phone",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Company`s status",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LoggedModel": {
+        "title": "Logged model",
+        "description": "Logged model",
+        "properties": {
+          "user": {
+            "title": "user",
+            "description": "Users`s data",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "email"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "company_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "format": "object"
+          },
+          "token": {
+            "title": "Access token",
+            "description": "Users`s access token",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LoginModel": {
+        "title": "Login model",
+        "description": "Login model",
+        "properties": {
+          "email": {
+            "title": "Email",
+            "description": "Users`s email",
+            "format": "email"
+          },
+          "password": {
+            "title": "Password",
+            "description": "Users`s password",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      },
+      "MainModel": {
+        "title": "Table model",
+        "description": "Table model",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Table`s id",
+            "format": "string"
+          },
+          "name": {
+            "title": "Name",
+            "description": "Table`s name",
+            "format": "string"
+          },
+          "seat_count": {
+            "title": "Seat count",
+            "description": "Table`s seat count",
+            "format": "integer"
+          },
+          "type": {
+            "title": "type",
+            "description": "Table`s type (TABLE = '0'; CABIN = '1';)",
+            "format": "string"
+          },
+          "company_id": {
+            "title": "Company id",
+            "description": "Table`s company id",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Table`s status",
+            "format": "string"
+          },
+          "created_at": {
+            "title": "Created at",
+            "description": "Table`s created at",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "title": "Updated at",
+            "description": "Table`s updated at",
+            "format": "date-time"
+          },
+          "bookings": {
+            "title": "Data of bookings",
+            "description": "All bookings in this table",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BookingModel"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "RegisterModel": {
+        "title": "Register model",
+        "description": "Register model",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Users`s id",
+            "format": "string"
+          },
+          "name": {
+            "title": "Name",
+            "description": "Users`s name",
+            "format": "string"
+          },
+          "email": {
+            "title": "Email",
+            "description": "Users`s email",
+            "format": "email"
+          },
+          "password": {
+            "title": "Password",
+            "description": "Users`s password",
+            "format": "string"
+          },
+          "role": {
+            "title": "Role",
+            "description": "Users`s role",
+            "format": "string",
+            "default": "user",
+            "enum": [
+              "admin",
+              "user"
+            ]
+          },
+          "phone": {
+            "title": "Phone",
+            "description": "Users`s phone",
+            "format": "string",
+            "example": "+992927777777"
+          },
+          "image": {
+            "title": "Image",
+            "description": "Users`s image",
+            "format": "string",
+            "example": "no-image.png"
+          },
+          "company_id": {
+            "title": "Company id",
+            "description": "Users`s company id",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Users`s status",
+            "format": "string"
+          },
+          "created_at": {
+            "title": "Created at",
+            "description": "Users`s created at",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "title": "Updated at",
+            "description": "Users`s updated at",
+            "format": "date-time"
+          }
+        },
+        "type": "object"
+      },
+      "RegisterStoreModel": {
+        "title": "Register store model",
+        "description": "Register store model",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "description": "Users`s name",
+            "format": "string"
+          },
+          "email": {
+            "title": "Email",
+            "description": "Users`s email",
+            "format": "email"
+          },
+          "password": {
+            "title": "Password",
+            "description": "Users`s password",
+            "format": "string"
+          },
+          "role": {
+            "title": "Role",
+            "description": "Users`s role",
+            "format": "string",
+            "default": "user",
+            "enum": [
+              "admin",
+              "user"
+            ]
+          },
+          "phone": {
+            "title": "Phone",
+            "description": "Users`s phone",
+            "format": "string",
+            "example": "+992927777777"
+          },
+          "image": {
+            "title": "Image",
+            "description": "Users`s image",
+            "format": "string",
+            "example": "no-image.png"
+          },
+          "company_id": {
+            "title": "Company id",
+            "description": "Users`s company id",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Users`s status",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TableModel": {
+        "title": "Table model",
+        "description": "Table model",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Table`s id",
+            "format": "string"
+          },
+          "name": {
+            "title": "Name",
+            "description": "Table`s name",
+            "format": "string"
+          },
+          "seat_count": {
+            "title": "Seat count",
+            "description": "Table`s seat count",
+            "format": "integer"
+          },
+          "type": {
+            "title": "type",
+            "description": "Table`s type (TABLE = '0'; CABIN = '1';)",
+            "format": "string"
+          },
+          "company_id": {
+            "title": "Company id",
+            "description": "Table`s company id",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Table`s status",
+            "format": "string"
+          },
+          "created_at": {
+            "title": "Created at",
+            "description": "Table`s created at",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "title": "Updated at",
+            "description": "Table`s updated at",
+            "format": "date-time"
+          }
+        },
+        "type": "object"
+      },
+      "TableStoreModel": {
+        "title": "Table store model",
+        "description": "Table store model",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "description": "Table`s name",
+            "format": "string"
+          },
+          "seat_count": {
+            "title": "Seat count",
+            "description": "Table`s seat count",
+            "format": "integer"
+          },
+          "type": {
+            "title": "type",
+            "description": "Table`s type (TABLE = '0'; CABIN = '1';)",
+            "format": "string"
+          },
+          "company_id": {
+            "title": "Company id",
+            "description": "Table`s company id",
+            "format": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Table`s status",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Main page",
+      "description": "API of main page"
+    },
+    {
+      "name": "Auth",
+      "description": "API of authentication"
+    },
+    {
+      "name": "User",
+      "description": "API of users"
+    },
+    {
+      "name": "Company",
+      "description": "API of companies"
+    },
+    {
+      "name": "Table",
+      "description": "API of tables"
+    },
+    {
+      "name": "Booking",
+      "description": "API of bookins"
+    },
+    {
+      "name": "Images",
+      "description": "API of images (link for image: url/uploads/image_name)"
+    }
+  ]
+}
