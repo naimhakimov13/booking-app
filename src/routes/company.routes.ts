@@ -63,7 +63,7 @@ router.post('/', [
       if (!errors.isEmpty()) {
         return res.status(400).json(errors.array())
       }
-      const company = new Company({ ...req.body, company_id: req.user.company_id })
+      const company = new Company({ ...req.body })
       const saveCompany = await company.save()
 
       res.status(201).json(saveCompany)

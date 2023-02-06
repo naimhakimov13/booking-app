@@ -2,7 +2,6 @@
   "name": "booking-app",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "src/main.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node src/main.ts",
@@ -37,5 +36,8 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.8.0",
     "typescript": "^4.9.3"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
