@@ -10,7 +10,7 @@ import routes from './routes'
 import { errorHandler } from './middleware/error.middleware'
 
 
-const PORT =  3001
+const PORT = 3000
 const app = express()
 
 app.use(cors())
