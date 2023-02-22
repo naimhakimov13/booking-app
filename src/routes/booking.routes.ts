@@ -24,7 +24,6 @@ router.get('/', [
          company_id: user.company_id
       }) : await Booking.find({ company_id: user.company_id })
 
-      console.log({ status: +query.status })
       res.json(bookingList)
     } catch (err) {
       next(err)

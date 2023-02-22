@@ -7,10 +7,10 @@ import config from 'config'
 
 import swaggerDocument from './swagger.json'
 import routes from './routes'
-import errorHandler from './middleware/error.middleware'
+import { errorHandler } from './middleware/error.middleware'
 
 
-const PORT = config.get('port') ?? 3001
+const PORT =  3001
 const app = express()
 
 app.use(cors())

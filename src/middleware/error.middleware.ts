@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { HttpStatus } from '../types/http-status.enum'
 
-const errorHandler = (
+export const errorHandler = (
   err: any,
   req: Request,
   res: Response,
@@ -14,4 +14,3 @@ const errorHandler = (
   })
 }
 
-export default errorHandler
